@@ -1,23 +1,27 @@
 from datetime import datetime
 from .markers import YEAR_MARKERS, MONTH_MARKERS, HUMAN_ARCHITECTURE_MARKERS
 
-A1 = 23
-B1 = 28
-C1 = 33
+# -------------------------
+# CONSTANTS
+# -------------------------
+
+A1 = 23  # Physical cycle
+B1 = 28  # Emotional cycle
+C1 = 33  # Intellectual cycle
 
 
 # -------------------------
 # HELPERS
 # -------------------------
 
-def is_leap_year(y: int) -> bool:
-    return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+def is_leap_year(year: int) -> bool:
+    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
 
 
 def days_in_month(year: int, month: int) -> int:
     if month == 2:
         return 29 if is_leap_year(year) else 28
-    return MONTH_MARKERS[month]["days"]
+    return [31,28,31,30,31,30,31,31,30,31,30,31][month-1]
 
 
 def reduce_value(value: int, max_value: int) -> int:
@@ -28,8 +32,8 @@ def reduce_value(value: int, max_value: int) -> int:
     return value
 
 
-def pct(v):
-    return int(str(v).replace("%", ""))
+def pct(value: str) -> int:
+    return int(str(value).replace("%", ""))
 
 
 # -------------------------
@@ -38,10 +42,16 @@ def pct(v):
 
 def run_calculation(input_data):
 
-    birth_date = datetime.strptime(input_data.patient_dob, "%Y-%m-%d")
-    year = birth_date.year
-    month = birth_date.month
-    day = birth_date.day
+    dob = input_data.patient_dob
+
+    try:
+        parsed = datetime.fromisoformat(dob)
+    except:
+        return {"error": "Invalid date format"}
+
+    year = parsed.year
+    month = parsed.month
+    day = parsed.day
 
     if year not in YEAR_MARKERS:
         return {"error": "Year not supported"}
@@ -51,68 +61,93 @@ def run_calculation(input_data):
     if day < 1 or day > dim:
         return {"error": "Invalid day"}
 
-    # YEAR markers
     A2 = YEAR_MARKERS[year]["A2"]
     B2 = YEAR_MARKERS[year]["B2"]
     C2 = YEAR_MARKERS[year]["C2"]
 
-    # MONTH markers
-    if month == 2:
-        month_key = 2 if is_leap_year(year) else "2.1"
-    else:
-        month_key = month
+    leap = is_leap_year(year)
+    month_key = month if month != 2 else (2 if leap else "2.1")
+
+    if month_key not in MONTH_MARKERS:
+        return {"error": "Missing month markers"}
 
     A3 = MONTH_MARKERS[month_key]["A3"]
     B3 = MONTH_MARKERS[month_key]["B3"]
     C3 = MONTH_MARKERS[month_key]["C3"]
 
-    # DAY rule
     A4 = dim - day
     B4 = A4
     C4 = A4
 
-    # FINAL markers
     X = reduce_value(A2 + A3 + A4, A1)
     Z = reduce_value(B2 + B3 + B4, B1)
     K = reduce_value(C2 + C3 + C4, C1)
 
-    physical     = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
-    emotional    = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
+    physical = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
+    emotional = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
     intellectual = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
 
     systems = {
-        "structural": physical["systems"]["Structural Stability"],
-        "adaptive": physical["systems"]["Reproductive & Adaptive"],
-        "metabolic": emotional["systems"]["Metabolic Drive & Will"],
-        "emotional": emotional["systems"]["Emotional Integration"],
-        "expression": intellectual["systems"]["Expression & Implementation"],
-        "cognitive": intellectual["systems"]["Cognitive Processing"],
+        "structural": pct(physical["systems"]["Structural Stability"]),
+        "adaptive": pct(physical["systems"]["Reproductive & Adaptive"]),
+        "metabolic": pct(emotional["systems"]["Metabolic Drive & Will"]),
+        "emotional": pct(emotional["systems"]["Emotional Integration"]),
+        "expression": pct(intellectual["systems"]["Expression & Implementation"]),
+        "cognitive": pct(intellectual["systems"]["Cognitive Processing"]),
     }
 
-    # --- PRAKRUTI ---
-    kapha_raw = pct(systems["structural"]) + pct(systems["adaptive"])
-    pitta_raw = pct(systems["metabolic"]) + pct(systems["emotional"])
-    vata_raw  = pct(systems["expression"]) + pct(systems["cognitive"])
+    # -------------------------
+    # PRAKRUTI
+    # -------------------------
+
+    kapha_raw = systems["structural"] + systems["adaptive"]
+    pitta_raw = systems["metabolic"] + systems["emotional"]
+    vata_raw = systems["expression"] + systems["cognitive"]
 
     total = kapha_raw + pitta_raw + vata_raw
 
     kapha = round(kapha_raw / total * 100)
     pitta = round(pitta_raw / total * 100)
-    vata  = round(vata_raw  / total * 100)
+    vata = round(vata_raw / total * 100)
 
-    # --- YIN / YANG ---
-    yin = pct(systems["structural"]) + pct(systems["expression"]) + pct(systems["cognitive"])
-    yang = pct(systems["adaptive"]) + pct(systems["metabolic"]) + pct(systems["emotional"])
+    dominant = max(kapha, pitta, vata)
 
-    direction = "Balanced"
+    if dominant == pitta:
+        prakruti = "Pitta dominant"
+    elif dominant == kapha:
+        prakruti = "Kapha dominant"
+    else:
+        prakruti = "Vata dominant"
+
+    # -------------------------
+    # YIN / YANG
+    # -------------------------
+
+    yin = systems["structural"] + systems["expression"] + systems["cognitive"]
+    yang = systems["adaptive"] + systems["metabolic"] + systems["emotional"]
+
     if yang > yin:
         direction = "Yang dominant"
     elif yin > yang:
         direction = "Yin dominant"
+    else:
+        direction = "Balanced"
+
+    balance_index = round(yang / yin, 2) if yin != 0 else None
+
+    # -------------------------
+    # TENSION & MAGNETISM
+    # -------------------------
 
     want = abs(yang - yin)
-    can = pct(systems["structural"])
+    can = systems["structural"]
+
     magnetism = want * can
+    tension_ratio = round(want / can, 2) if can != 0 else None
+
+    # -------------------------
+    # FINAL RESULT
+    # -------------------------
 
     return {
         "markers": {
@@ -121,26 +156,27 @@ def run_calculation(input_data):
             "intellectual": K
         },
         "profiles": {
-            "physical": physical["profile"],
-            "emotional": emotional["profile"],
-            "intellectual": intellectual["profile"]
+            "physical": physical,
+            "emotional": emotional,
+            "intellectual": intellectual
         },
         "systems": systems,
         "prakruti": {
             "kapha": kapha,
             "pitta": pitta,
-            "vata": vata
+            "vata": vata,
+            "type": prakruti
         },
         "yin_yang": {
             "yin": yin,
             "yang": yang,
             "direction": direction,
-            "balance_index": round(yang / yin, 2) if yin else None
+            "balance_index": balance_index
         },
         "tension": {
             "want": want,
             "can": can,
             "magnetism": magnetism,
-            "tension_ratio": round(want / can, 2) if can else None
+            "tension_ratio": tension_ratio
         }
     }
