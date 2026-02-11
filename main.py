@@ -13,19 +13,13 @@ app = FastAPI(title="HA Backend API", version="0.4")
 ## -------------------------
 # CORS
 # -------------------------
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://4doctors.us",
-        "https://www.4doctors.us"
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],  # временно для теста
+    allow_credentials=False,  # ВАЖНО
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 # -------------------------
 # In-memory session storage
 # -------------------------
