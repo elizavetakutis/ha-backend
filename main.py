@@ -5,10 +5,12 @@ from typing import Optional
 from uuid import uuid4
 import asyncio
 
-app = FastAPI(title="HA Backend API", version="0.2")
+from engine.calculator import run_calculation
+
+app = FastAPI(title="HA Backend API", version="0.3")
 
 # -------------------------
-# CORS (Shopify connection)
+# CORS
 # -------------------------
 
 app.add_middleware(
@@ -51,17 +53,14 @@ class SessionRunRequest(BaseModel):
 # -------------------------
 
 async def process_session(session_id: str):
-    await asyncio.sleep(3)  # имитация AI обработки
+    await asyncio.sleep(2)
+
+    input_data = sessions[session_id]["input"]
+
+    result = run_calculation(input_data)
 
     sessions[session_id]["status"] = "completed"
-    sessions[session_id]["result"] = {
-        "summary": "Mock clinical interpretation completed.",
-        "recommendations": [
-            "Increase magnesium intake",
-            "Optimize vitamin D levels",
-            "Review inflammatory markers"
-        ]
-    }
+    sessions[session_id]["result"] = result
 
 
 # -------------------------
@@ -79,10 +78,10 @@ async def run_session(payload: SessionRunRequest):
 
     sessions[session_id] = {
         "status": "processing",
+        "input": payload.input,
         "result": None
     }
 
-    # запускаем асинхронную обработку
     asyncio.create_task(process_session(session_id))
 
     return {
@@ -100,6 +99,7 @@ def get_session(session_id: str):
         }
 
     return sessions[session_id]
+]
 
 
 
