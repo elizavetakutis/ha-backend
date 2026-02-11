@@ -1,18 +1,29 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, Dict
 from uuid import uuid4
 from datetime import datetime
 
-app = FastAPI(title="HA Backend API", version="0.2")
+app = FastAPI(title="HA Backend API", version="0.3")
 
+# ------------------------
+# CORS (ОБЯЗАТЕЛЬНО)
+# ------------------------
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # потом можно ограничить
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ------------------------
 # In-memory session store
 # ------------------------
 
 SESSIONS: Dict[str, dict] = {}
-
 
 # ------------------------
 # Models
@@ -45,7 +56,7 @@ def health_check():
     return {
         "status": "ok",
         "message": "HA backend is running",
-        "version": "0.2"
+        "version": "0.3"
     }
 
 
@@ -53,7 +64,6 @@ def health_check():
 def run_session(payload: SessionRunRequest):
     session_id = str(uuid4())
 
-    # Пока делаем фейковый анализ
     result_summary = {
         "analysis_status": "completed",
         "clinical_vector": "metabolic-dominant",
