@@ -1,33 +1,19 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, Dict
+from typing import Optional
 from uuid import uuid4
-from datetime import datetime
 
-app = FastAPI(title="HA Backend API", version="0.4")
+app = FastAPI(title="HA Backend API", version="0.2")
 
-# ------------------------
-# CORS
-# ------------------------
+# =========================
+# In-memory session storage
+# =========================
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # можно потом ограничить доменом
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+sessions = {}
 
-# ------------------------
-# In-memory session store
-# ------------------------
-
-SESSIONS: Dict[str, dict] = {}
-
-# ------------------------
+# =========================
 # Models
-# ------------------------
+# =========================
 
 class DoctorInfo(BaseModel):
     shopify_customer_id: str
@@ -39,7 +25,6 @@ class InputData(BaseModel):
     patient_dob: str
     protocol_type: str
     protocol_content: str
-    lifestyle_enabled: bool = False
 
 
 class SessionRunRequest(BaseModel):
@@ -47,36 +32,23 @@ class SessionRunRequest(BaseModel):
     input: InputData
 
 
-# ------------------------
+# =========================
 # Endpoints
-# ------------------------
+# =========================
 
 @app.get("/")
 def health_check():
-    return {
-        "status": "ok",
-        "message": "HA backend is running",
-        "version": "0.4"
-    }
+    return {"status": "ok", "message": "HA backend is running"}
 
 
 @app.post("/sessions/run")
 def run_session(payload: SessionRunRequest):
     session_id = str(uuid4())
 
-    result_summary = {
-        "analysis_status": "completed",
-        "clinical_vector": "metabolic-dominant",
-        "timestamp": datetime.utcnow().isoformat()
-    }
-
-    SESSIONS[session_id] = {
-        "session_id": session_id,
-        "status": "completed",
-        "created_at": datetime.utcnow().isoformat(),
-        "doctor": payload.doctor.dict(),
-        "input": payload.input.dict(),
-        "result": result_summary
+    # Сохраняем сессию
+    sessions[session_id] = {
+        "status": "processing",
+        "result": None
     }
 
     return {
@@ -86,18 +58,17 @@ def run_session(payload: SessionRunRequest):
 
 
 @app.get("/sessions/{session_id}")
-def get_session(session_id: str):
-    session = SESSIONS.get(session_id)
-
-    if not session:
+def get_session_status(session_id: str):
+    if session_id not in sessions:
         return {
             "status": "not_found",
             "message": "Session not found"
         }
 
     return {
-        "status": "success",
-        "data": session
+        "status": sessions[session_id]["status"],
+        "result": sessions[session_id]["result"]
     }
+
 
 
