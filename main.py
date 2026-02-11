@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from uuid import uuid4
@@ -6,9 +7,25 @@ from uuid import uuid4
 app = FastAPI(title="HA Backend API", version="0.1")
 
 
-# ---------
+# -----------------------
+# CORS — ОБЯЗАТЕЛЬНО
+# -----------------------
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://4doctors.us",
+        "https://www.4doctors.us"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# -----------------------
 # Models
-# ---------
+# -----------------------
 
 class DoctorInfo(BaseModel):
     shopify_customer_id: str
@@ -27,13 +44,16 @@ class SessionRunRequest(BaseModel):
     input: InputData
 
 
-# ---------
+# -----------------------
 # Endpoints
-# ---------
+# -----------------------
 
 @app.get("/")
 def health_check():
-    return {"status": "ok", "message": "HA backend is running"}
+    return {
+        "status": "ok",
+        "message": "HA backend is running"
+    }
 
 
 @app.post("/sessions/run")
@@ -45,4 +65,5 @@ def run_session(payload: SessionRunRequest):
         "session_id": session_id,
         "received": True
     }
+
 
