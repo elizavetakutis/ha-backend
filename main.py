@@ -1,12 +1,30 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from uuid import uuid4
 
-app = FastAPI(title="HA Backend API", version="0.2")
+app = FastAPI(title="HA Backend API", version="0.3")
 
 # =========================
-# In-memory session storage
+# CORS CONFIG
+# =========================
+
+origins = [
+    "https://4doctors.us",
+    "https://www.4doctors.us",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# =========================
+# In-memory storage
 # =========================
 
 sessions = {}
@@ -45,7 +63,6 @@ def health_check():
 def run_session(payload: SessionRunRequest):
     session_id = str(uuid4())
 
-    # Сохраняем сессию
     sessions[session_id] = {
         "status": "processing",
         "result": None
@@ -69,6 +86,7 @@ def get_session_status(session_id: str):
         "status": sessions[session_id]["status"],
         "result": sessions[session_id]["result"]
     }
+
 
 
 
