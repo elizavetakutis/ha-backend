@@ -3,35 +3,31 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 from uuid import uuid4
+import asyncio
 
-app = FastAPI(title="HA Backend API", version="0.3")
+app = FastAPI(title="HA Backend API", version="0.2")
 
-# =========================
-# CORS CONFIG
-# =========================
-
-origins = [
-    "https://4doctors.us",
-    "https://www.4doctors.us",
-]
+# -------------------------
+# CORS (Shopify connection)
+# -------------------------
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["https://4doctors.us"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# =========================
-# In-memory storage
-# =========================
+# -------------------------
+# In-memory session storage
+# -------------------------
 
 sessions = {}
 
-# =========================
+# -------------------------
 # Models
-# =========================
+# -------------------------
 
 class DoctorInfo(BaseModel):
     shopify_customer_id: str
@@ -50,9 +46,27 @@ class SessionRunRequest(BaseModel):
     input: InputData
 
 
-# =========================
+# -------------------------
+# Background processing
+# -------------------------
+
+async def process_session(session_id: str):
+    await asyncio.sleep(3)  # имитация AI обработки
+
+    sessions[session_id]["status"] = "completed"
+    sessions[session_id]["result"] = {
+        "summary": "Mock clinical interpretation completed.",
+        "recommendations": [
+            "Increase magnesium intake",
+            "Optimize vitamin D levels",
+            "Review inflammatory markers"
+        ]
+    }
+
+
+# -------------------------
 # Endpoints
-# =========================
+# -------------------------
 
 @app.get("/")
 def health_check():
@@ -60,13 +74,16 @@ def health_check():
 
 
 @app.post("/sessions/run")
-def run_session(payload: SessionRunRequest):
+async def run_session(payload: SessionRunRequest):
     session_id = str(uuid4())
 
     sessions[session_id] = {
         "status": "processing",
         "result": None
     }
+
+    # запускаем асинхронную обработку
+    asyncio.create_task(process_session(session_id))
 
     return {
         "status": "accepted",
@@ -75,17 +92,15 @@ def run_session(payload: SessionRunRequest):
 
 
 @app.get("/sessions/{session_id}")
-def get_session_status(session_id: str):
+def get_session(session_id: str):
     if session_id not in sessions:
         return {
             "status": "not_found",
             "message": "Session not found"
         }
 
-    return {
-        "status": sessions[session_id]["status"],
-        "result": sessions[session_id]["result"]
-    }
+    return sessions[session_id]
+
 
 
 
