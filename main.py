@@ -7,7 +7,7 @@ import asyncio
 
 from engine.calculator import run_calculation
 
-app = FastAPI(title="HA Backend API", version="0.3")
+app = FastAPI(title="HA Backend API", version="0.4")
 
 # -------------------------
 # CORS
@@ -39,8 +39,8 @@ class DoctorInfo(BaseModel):
 
 class InputData(BaseModel):
     patient_dob: str
-    protocol_type: str
-    protocol_content: str
+    protocol_type: Optional[str] = None
+    protocol_content: Optional[str] = None
 
 
 class SessionRunRequest(BaseModel):
@@ -53,14 +53,19 @@ class SessionRunRequest(BaseModel):
 # -------------------------
 
 async def process_session(session_id: str):
-    await asyncio.sleep(2)
+    await asyncio.sleep(1)
 
-    input_data = sessions[session_id]["input"]
+    input_data: InputData = sessions[session_id]["input"]
 
-    result = run_calculation(input_data)
+    try:
+        result = run_calculation(input_data.patient_dob)
 
-    sessions[session_id]["status"] = "completed"
-    sessions[session_id]["result"] = result
+        sessions[session_id]["status"] = "completed"
+        sessions[session_id]["result"] = result
+
+    except Exception as e:
+        sessions[session_id]["status"] = "error"
+        sessions[session_id]["result"] = {"error": str(e)}
 
 
 # -------------------------
@@ -99,7 +104,6 @@ def get_session(session_id: str):
         }
 
     return sessions[session_id]
-]
 
 
 
