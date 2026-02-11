@@ -5,15 +5,15 @@ from typing import Optional, Dict
 from uuid import uuid4
 from datetime import datetime
 
-app = FastAPI(title="HA Backend API", version="0.3")
+app = FastAPI(title="HA Backend API", version="0.4")
 
 # ------------------------
-# CORS (ОБЯЗАТЕЛЬНО)
+# CORS
 # ------------------------
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # потом можно ограничить
+    allow_origins=["*"],  # можно потом ограничить доменом
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,7 +56,7 @@ def health_check():
     return {
         "status": "ok",
         "message": "HA backend is running",
-        "version": "0.3"
+        "version": "0.4"
     }
 
 
@@ -67,7 +67,6 @@ def run_session(payload: SessionRunRequest):
     result_summary = {
         "analysis_status": "completed",
         "clinical_vector": "metabolic-dominant",
-        "lifestyle_block_included": payload.input.lifestyle_enabled,
         "timestamp": datetime.utcnow().isoformat()
     }
 
@@ -100,4 +99,5 @@ def get_session(session_id: str):
         "status": "success",
         "data": session
     }
+
 
