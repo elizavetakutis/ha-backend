@@ -10,16 +10,21 @@ from engine.calculator import run_calculation
 app = FastAPI(title="HA Backend API", version="0.4")
 
 # -------------------------
+## -------------------------
 # CORS
 # -------------------------
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # временно
+    allow_origins=[
+        "https://4doctors.us",
+        "https://www.4doctors.us"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # -------------------------
 # In-memory session storage
