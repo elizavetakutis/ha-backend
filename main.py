@@ -15,7 +15,7 @@ app = FastAPI(title="HA Backend API", version="0.4")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://4doctors.us"],
+    allow_origins=["*"],  # временно
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
