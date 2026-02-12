@@ -56,19 +56,20 @@ class SessionRunRequest(BaseModel):
 # -------------------------
 
 async def process_session(session_id: str):
-    await asyncio.sleep(1)
-
-    input_data: InputData = sessions[session_id]["input"]
-
     try:
-        result = run_calculation(input_data.patient_dob)
+        input_data: InputData = sessions[session_id]["input"]
+
+        # Запускаем реальный калькулятор
+        result = run_calculation(input_data)
 
         sessions[session_id]["status"] = "completed"
         sessions[session_id]["result"] = result
 
     except Exception as e:
         sessions[session_id]["status"] = "error"
-        sessions[session_id]["result"] = {"error": str(e)}
+        sessions[session_id]["result"] = {
+            "error": str(e)
+        }
 
 
 # -------------------------
