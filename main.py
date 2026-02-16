@@ -6,13 +6,13 @@ from uuid import uuid4
 import asyncio
 
 from engine.calculator import run_calculation
+from interpretation.protocol_assembly import assemble_protocol
 
 app = FastAPI(title="HA Backend API", version="0.5")
 
 # -------------------------
 # CORS
 # -------------------------
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -44,7 +44,6 @@ class InputData(BaseModel):
     patient_dob: str
     protocol_type: Optional[str] = None
     protocol_content: Optional[str] = None
-    raw_protocol_text: Optional[str] = None   # ← ДОБАВИЛИ
 
 
 class SessionRunRequest(BaseModel):
@@ -60,16 +59,34 @@ async def process_session(session_id: str):
     try:
         input_data: InputData = sessions[session_id]["input"]
 
-        result = run_calculation(input_data)
+        # Internal calculation 
+        calculation_result = run_calculation(input_data)
+
+        #  Берем raw protocol text
+        raw_text = input_data.protocol_content or ""
+
+        # Собираем финальный текст
+        final_output = assemble_protocol(
+            raw_text=raw_text,
+            calculation_data=calculation_result
+        )
+
+        # Сохраняем INTERNAL (для будущих слоев)
+        sessions[session_id]["internal"] = calculation_result
+
+        # Сохраняем PUBLIC (только output)
+        sessions[session_id]["public"] = {
+            "output": final_output
+        }
 
         sessions[session_id]["status"] = "completed"
-        sessions[session_id]["result"] = result
 
     except Exception as e:
         sessions[session_id]["status"] = "error"
-        sessions[session_id]["result"] = {
-            "error": str(e)
+        sessions[session_id]["public"] = {
+            "output": None
         }
+
 
 # -------------------------
 # Endpoints
@@ -87,7 +104,8 @@ async def run_session(payload: SessionRunRequest):
     sessions[session_id] = {
         "status": "processing",
         "input": payload.input,
-        "result": None
+        "internal": None,
+        "public": None
     }
 
     asyncio.create_task(process_session(session_id))
@@ -106,4 +124,16 @@ def get_session(session_id: str):
             "message": "Session not found"
         }
 
-    return sessions[session_id]
+    session = sessions[session_id]
+
+    if session["status"] != "completed":
+        return {
+            "status": session["status"]
+        }
+
+    # 🔐 Возвращаем только PUBLIC
+    return {
+        "status": "completed",
+        "output": session["public"]["output"]
+    }
+
