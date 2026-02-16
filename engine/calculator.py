@@ -1,6 +1,12 @@
 from datetime import datetime
 from .markers import YEAR_MARKERS, MONTH_MARKERS, HUMAN_ARCHITECTURE_MARKERS
 
+# NEW: interpretation layer (безопасный импорт)
+try:
+    from interpretation.protocol_assembly import assemble_protocol
+except:
+    assemble_protocol = None
+
 # -------------------------
 # CONSTANTS
 # -------------------------
@@ -146,6 +152,27 @@ def run_calculation(input_data):
     tension_ratio = round(want / can, 2) if can != 0 else None
 
     # -------------------------
+    # NEW: PROTOCOL ASSEMBLY
+    # -------------------------
+
+    output_text = None
+
+    if hasattr(input_data, "raw_protocol_text") and input_data.raw_protocol_text:
+        if assemble_protocol:
+            output_text = assemble_protocol(
+                raw_text=input_data.raw_protocol_text,
+                calculation_data={
+                    "systems": systems,
+                    "prakruti": prakruti,
+                    "yin_yang_direction": direction,
+                    "magnetism": magnetism
+                }
+            )
+        else:
+            # если interpretation layer ещё не создан
+            output_text = input_data.raw_protocol_text
+
+    # -------------------------
     # FINAL RESULT
     # -------------------------
 
@@ -178,5 +205,6 @@ def run_calculation(input_data):
             "can": can,
             "magnetism": magnetism,
             "tension_ratio": tension_ratio
-        }
+        },
+        "output": output_text   # ← НОВОЕ ПОЛЕ
     }
