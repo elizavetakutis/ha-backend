@@ -7,10 +7,9 @@ import asyncio
 
 from engine.calculator import run_calculation
 
-app = FastAPI(title="HA Backend API", version="0.4")
+app = FastAPI(title="HA Backend API", version="0.5")
 
 # -------------------------
-## -------------------------
 # CORS
 # -------------------------
 app.add_middleware(
@@ -44,6 +43,9 @@ class InputData(BaseModel):
     patient_dob: str
     protocol_type: Optional[str] = None
     protocol_content: Optional[str] = None
+    
+    # ✅ НОВОЕ ПОЛЕ
+    raw_protocol_text: Optional[str] = None
 
 
 class SessionRunRequest(BaseModel):
@@ -59,7 +61,7 @@ async def process_session(session_id: str):
     try:
         input_data: InputData = sessions[session_id]["input"]
 
-        # Запускаем реальный калькулятор
+        # Передаем всё в калькулятор
         result = run_calculation(input_data)
 
         sessions[session_id]["status"] = "completed"
@@ -108,6 +110,7 @@ def get_session(session_id: str):
         }
 
     return sessions[session_id]
+
 
 
 
