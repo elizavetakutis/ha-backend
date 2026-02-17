@@ -5,7 +5,7 @@ from typing import Optional
 from uuid import uuid4
 import asyncio
 
-from engine.calculator import run_calculation
+from engine.calculator import run_calculation, extract_comm_state
 from interpretation.protocol_assembly import assemble_protocol
 
 app = FastAPI(title="HA Backend API", version="0.5")
