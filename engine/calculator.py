@@ -208,3 +208,27 @@ def run_calculation(input_data):
         },
         "output": output_text   # ← НОВОЕ ПОЛЕ
     }
+# -------------------------
+# COMMUNICATION EXTRACTION (PRIVATE)
+# -------------------------
+
+def extract_comm_state(calc_result: dict) -> dict:
+    """
+    Extracts ONLY 4 communication metrics from full calculation.
+    This layer is private and must never be exposed directly.
+    """
+
+    systems = calc_result.get("systems", {})
+    tension = calc_result.get("tension", {})
+
+    magnetism_raw = tension.get("magnetism", 0)
+    want_diff = tension.get("want", 0)
+
+    magnetism_level = "L" if magnetism_raw < 1000 else "N"
+
+    return {
+        "c1": magnetism_level,                     # magnetism level
+        "c2": systems.get("cognitive", 0),         # cognitive processing
+        "c3": systems.get("structural", 0),        # structural stability
+        "c4": want_diff                            # motivational tension
+    }
