@@ -1,0 +1,205 @@
+# -------------------------
+# PHYSICAL PROFILE MAP
+# -------------------------
+
+PHYSICAL_PROFILE_MAP = {
+    "PH01": {
+        "energy_style": "outward",
+        "adaptability": "fast",
+        "stability": "high",
+        "social_expression": "diffuse",
+        "stress_pattern": "flexible",
+        "boundary_style": "environment-driven",
+    },
+    "PH02": {
+        "energy_style": "outward",
+        "adaptability": "fast",
+        "stability": "high",
+        "social_expression": "externalizing",
+        "stress_pattern": "defined",
+        "boundary_style": "goal-driven",
+    },
+    "PH03": {
+        "energy_style": "outward",
+        "adaptability": "fast",
+        "stability": "high",
+        "social_expression": "externalizing",
+        "stress_pattern": "defined",
+        "boundary_style": "goal-driven",
+    },
+    "PH04": {
+        "energy_style": "inward",
+        "adaptability": "moderate",
+        "stability": "low",
+        "social_expression": "internalizing",
+        "stress_pattern": "defined",
+        "boundary_style": "internally-driven",
+    },
+    "PH05": {
+        "energy_style": "inward",
+        "adaptability": "slow",
+        "stability": "low",
+        "social_expression": "internalizing",
+        "stress_pattern": "flexible",
+        "boundary_style": "stable-environment",
+    },
+}
+EMOTIONAL_PROFILE_MAP = {
+    "EM01": {
+        "emotional_intensity": "high",
+        "relational_orientation": "moderate",
+        "boundary_permeability": "confrontational",
+        "conflict_response": "moderate",
+        "self_priority": "engaged",
+        "attachment_style": "self-regulated",
+    },
+    "EM02": {
+        "emotional_intensity": "moderate",
+        "relational_orientation": "low",
+        "boundary_permeability": "confrontational",
+        "conflict_response": "high",
+        "self_priority": "autonomous",
+        "attachment_style": "self-regulated",
+    },
+    "EM03": {
+        "emotional_intensity": "high",
+        "relational_orientation": "high",
+        "boundary_permeability": "avoidant",
+        "conflict_response": "low",
+        "self_priority": "relational",
+        "attachment_style": "co-regulated",
+    },
+    "EM04": {
+        "emotional_intensity": "high",
+        "relational_orientation": "high",
+        "boundary_permeability": "avoidant",
+        "conflict_response": "low",
+        "self_priority": "attuned",
+        "attachment_style": "co-regulated",
+    },
+    "EM05": {
+        "emotional_intensity": "low",
+        "relational_orientation": "low",
+        "boundary_permeability": "withdrawn",
+        "conflict_response": "high",
+        "self_priority": "detached",
+        "attachment_style": "self-regulated",
+    },
+    "EM06": {
+        "emotional_intensity": "high",
+        "relational_orientation": "moderate",
+        "boundary_permeability": "avoidant",
+        "conflict_response": "moderate",
+        "self_priority": "relational",
+        "attachment_style": "co-regulated",
+    },
+    "EM07": {
+        "emotional_intensity": "moderate",
+        "relational_orientation": "moderate",
+        "boundary_permeability": "adaptive",
+        "conflict_response": "moderate",
+        "self_priority": "secure",
+        "attachment_style": "adaptive",
+    },
+}
+INTELLECTUAL_PROFILE_MAP = {
+
+    "IN01": {
+        "cognitive_style": "high",
+        "pattern_processing": "moderate",
+        "decision_speed": "high",
+        "abstraction_level": "moderate",
+        "structure_need": "integrative",
+        "expression_mode": "high",
+    },
+
+    "IN02": {
+        "cognitive_style": "moderate",
+        "pattern_processing": "moderate",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "precise",
+        "expression_mode": "moderate",
+    },
+
+    "IN03": {
+        "cognitive_style": "high",
+        "pattern_processing": "fast",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "executive",
+        "expression_mode": "high",
+    },
+
+    "IN04": {
+        "cognitive_style": "high",
+        "pattern_processing": "moderate",
+        "decision_speed": "high",
+        "abstraction_level": "high",
+        "structure_need": "integrative-precise",
+        "expression_mode": "high",
+    },
+
+    "IN05": {
+        "cognitive_style": "high",
+        "pattern_processing": "fast",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "precise",
+        "expression_mode": "high",
+    },
+
+    "IN06": {
+        "cognitive_style": "moderate",
+        "pattern_processing": "moderate",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "precise",
+        "expression_mode": "moderate",
+    },
+
+    "IN07": {
+        "cognitive_style": "moderate",
+        "pattern_processing": "moderate",
+        "decision_speed": "moderate",
+        "abstraction_level": "moderate",
+        "structure_need": "balanced",
+        "expression_mode": "moderate",
+    },
+
+    "IN08": {
+        "cognitive_style": "moderate",
+        "pattern_processing": "moderate",
+        "decision_speed": "high",
+        "abstraction_level": "moderate",
+        "structure_need": "integrative",
+        "expression_mode": "high",
+    },
+
+    "IN09": {
+        "cognitive_style": "high",
+        "pattern_processing": "fast",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "balanced",
+        "expression_mode": "high",
+    },
+
+    "IN10": {
+        "cognitive_style": "low",
+        "pattern_processing": "slow",
+        "decision_speed": "high",
+        "abstraction_level": "low",
+        "structure_need": "conceptual",
+        "expression_mode": "moderate",
+    },
+
+    "IN11": {
+        "cognitive_style": "high",
+        "pattern_processing": "fast",
+        "decision_speed": "moderate",
+        "abstraction_level": "high",
+        "structure_need": "executive",
+        "expression_mode": "high",
+    },
+}
