@@ -1,34 +1,49 @@
-def assemble_protocol(raw_text: str, calculation_data: dict) -> str:
+def assemble_protocol(raw_text: str, comm_state: dict) -> str:
+    """
+    Builds patient-facing protocol text using ONLY encoded communication state.
+    No diagnostic structures are exposed.
+    """
 
-    systems = calculation_data.get("systems", {})
-    prakruti_data = calculation_data.get("prakruti", {})
-    yin_yang = calculation_data.get("yin_yang", {})
-    tension = calculation_data.get("tension", {})
+    c1 = comm_state.get("c1")  # magnetism encoded
+    c2 = comm_state.get("c2", 0)  # cognitive processing
+    c3 = comm_state.get("c3", 0)  # structural stability
+    c4 = comm_state.get("c4", 0)  # motivational difference
 
-    structured_text = f"""
-Patient Plan Summary
+    # -------------------------
+    # Tone Logic (Encoded)
+    # -------------------------
 
-Metabolic Type: {prakruti_data.get("type", "N/A")}
-Energy Direction: {yin_yang.get("direction", "N/A")}
-Magnetism Score: {tension.get("magnetism", "N/A")}
+    if c1 == "L":
+        intro = "Please consider the following guidance:\n\n"
+    else:
+        intro = ""
 
-System Overview:
-- Structural Stability: {systems.get("structural", 0)}%
-- Adaptive Capacity: {systems.get("adaptive", 0)}%
-- Metabolic Drive: {systems.get("metabolic", 0)}%
-- Emotional Integration: {systems.get("emotional", 0)}%
-- Expression: {systems.get("expression", 0)}%
-- Cognitive Processing: {systems.get("cognitive", 0)}%
+    # Cognitive detail adjustment
+    if c2 >= 60:
+        detail_line = "\n\nConsistency and timing may influence effectiveness."
+    else:
+        detail_line = ""
 
------------------------------------
-Doctor Prescribed Plan:
------------------------------------
+    # Structural confidence adjustment
+    if c3 < 30:
+        support_line = "\n\nMaintain routine to support stability."
+    else:
+        support_line = ""
 
-{raw_text}
+    # Motivational emphasis
+    if c4 > 100:
+        motivation_line = "\n\nConsistency will be especially important for best results."
+    else:
+        motivation_line = ""
 
------------------------------------
-This plan was structured for clarity and patient understanding.
-"""
+    structured_text = (
+        "Patient Plan Summary\n\n"
+        + intro
+        + raw_text.strip()
+        + detail_line
+        + support_line
+        + motivation_line
+    )
 
-    return structured_text.strip()
+    return structured_text
 
