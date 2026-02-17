@@ -59,18 +59,20 @@ async def process_session(session_id: str):
     try:
         input_data: InputData = sessions[session_id]["input"]
 
-        # Internal calculation 
-        calculation_result = run_calculation(input_data)
+        # Internal calculation (полная модель остаётся внутри)
+calculation_result = run_calculation(input_data)
 
-        #  Берем raw protocol text
-        raw_text = input_data.protocol_content or ""
+# 🔐 Extract encoded communication state (только 4 показателя)
+comm_state = extract_comm_state(calculation_result)
 
-        # Собираем финальный текст
-        final_output = assemble_protocol(
-            raw_text=raw_text,
-            calculation_data=calculation_result
-        )
+# Берем raw protocol text
+raw_text = input_data.protocol_content or ""
 
+# Собираем финальный текст (без передачи полной модели)
+final_output = assemble_protocol(
+    raw_text=raw_text,
+    comm_state=comm_state
+)
         # Сохраняем INTERNAL (для будущих слоев)
         sessions[session_id]["internal"] = calculation_result
 
