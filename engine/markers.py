@@ -682,5 +682,5 @@ HUMAN_ARCHITECTURE_MARKERS = {
             "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "82%"},
             "profile": "Cognitive harmony",
             "profile_id": "IN08"
-        },
-    },
+        }
+    }
