@@ -187,11 +187,7 @@ intellectual_profile_id = intellectual_data.get("profile_id")
             "emotional": Z,
             "intellectual": K
         },
-        "profiles": {
-            "physical": physical,
-            "emotional": emotional,
-            "intellectual": intellectual
-        },
+    "profiles": { "physical": physical.get("profile_id"), "emotional": emotional.get("profile_id"), "intellectual": intellectual.get("profile_id") },
         "systems": systems,
         "prakruti": {
             "kapha": kapha,
