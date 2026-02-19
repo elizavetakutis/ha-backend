@@ -1,6 +1,12 @@
 from datetime import datetime
 from .markers import YEAR_MARKERS, MONTH_MARKERS, HUMAN_ARCHITECTURE_MARKERS
 
+# NEW: interpretation layer (безопасный импорт)
+try:
+    from interpretation.protocol_assembly import assemble_protocol
+except:
+    assemble_protocol = None
+
 # -------------------------
 # CONSTANTS
 # -------------------------
@@ -83,38 +89,88 @@ def run_calculation(input_data):
     Z = reduce_value(B2 + B3 + B4, B1)
     K = reduce_value(C2 + C3 + C4, C1)
 
-    # Получаем данные профилей
-    physical_data = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
-    emotional_data = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
-    intellectual_data = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
+    physical = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
+    emotional = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
+    intellectual = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
 
-    # Получаем profile_id
-    physical_profile_id = physical_data.get("profile_id")
-    emotional_profile_id = emotional_data.get("profile_id")
-    intellectual_profile_id = intellectual_data.get("profile_id")
-
-    # Системные проценты
     systems = {
-        "structural": pct(physical_data["systems"]["Structural Stability"]),
-        "adaptive": pct(physical_data["systems"]["Reproductive & Adaptive"]),
-        "metabolic": pct(emotional_data["systems"]["Metabolic Drive & Will"]),
-        "emotional": pct(emotional_data["systems"]["Emotional Integration"]),
-        "expression": pct(intellectual_data["systems"]["Expression & Implementation"]),
-        "cognitive": pct(intellectual_data["systems"]["Cognitive Processing"]),
+        "structural": pct(physical["systems"]["Structural Stability"]),
+        "adaptive": pct(physical["systems"]["Reproductive & Adaptive"]),
+        "metabolic": pct(emotional["systems"]["Metabolic Drive & Will"]),
+        "emotional": pct(emotional["systems"]["Emotional Integration"]),
+        "expression": pct(intellectual["systems"]["Expression & Implementation"]),
+        "cognitive": pct(intellectual["systems"]["Cognitive Processing"]),
     }
 
     # -------------------------
-    # TENSION & MAGNETISM
+    # PRAKRUTI
+    # -------------------------
+
+    kapha_raw = systems["structural"] + systems["adaptive"]
+    pitta_raw = systems["metabolic"] + systems["emotional"]
+    vata_raw = systems["expression"] + systems["cognitive"]
+
+    total = kapha_raw + pitta_raw + vata_raw
+
+    kapha = round(kapha_raw / total * 100)
+    pitta = round(pitta_raw / total * 100)
+    vata = round(vata_raw / total * 100)
+
+    dominant = max(kapha, pitta, vata)
+
+    if dominant == pitta:
+        prakruti = "Pitta dominant"
+    elif dominant == kapha:
+        prakruti = "Kapha dominant"
+    else:
+        prakruti = "Vata dominant"
+
+    # -------------------------
+    # YIN / YANG
     # -------------------------
 
     yin = systems["structural"] + systems["expression"] + systems["cognitive"]
     yang = systems["adaptive"] + systems["metabolic"] + systems["emotional"]
+
+    if yang > yin:
+        direction = "Yang dominant"
+    elif yin > yang:
+        direction = "Yin dominant"
+    else:
+        direction = "Balanced"
+
+    balance_index = round(yang / yin, 2) if yin != 0 else None
+
+    # -------------------------
+    # TENSION & MAGNETISM
+    # -------------------------
 
     want = abs(yang - yin)
     can = systems["structural"]
 
     magnetism = want * can
     tension_ratio = round(want / can, 2) if can != 0 else None
+
+    # -------------------------
+    # NEW: PROTOCOL ASSEMBLY
+    # -------------------------
+
+    output_text = None
+
+    if hasattr(input_data, "raw_protocol_text") and input_data.raw_protocol_text:
+        if assemble_protocol:
+            output_text = assemble_protocol(
+                raw_text=input_data.raw_protocol_text,
+                calculation_data={
+                    "systems": systems,
+                    "prakruti": prakruti,
+                    "yin_yang_direction": direction,
+                    "magnetism": magnetism
+                }
+            )
+        else:
+            # если interpretation layer ещё не создан
+            output_text = input_data.raw_protocol_text
 
     # -------------------------
     # FINAL RESULT
@@ -127,20 +183,31 @@ def run_calculation(input_data):
             "intellectual": K
         },
         "profiles": {
-            "physical": physical_profile_id,
-            "emotional": emotional_profile_id,
-            "intellectual": intellectual_profile_id
+            "physical": physical,
+            "emotional": emotional,
+            "intellectual": intellectual
         },
         "systems": systems,
+        "prakruti": {
+            "kapha": kapha,
+            "pitta": pitta,
+            "vata": vata,
+            "type": prakruti
+        },
+        "yin_yang": {
+            "yin": yin,
+            "yang": yang,
+            "direction": direction,
+            "balance_index": balance_index
+        },
         "tension": {
             "want": want,
             "can": can,
             "magnetism": magnetism,
             "tension_ratio": tension_ratio
-        }
+        },
+        "output": output_text   # ← НОВОЕ ПОЛЕ
     }
-
-
 # -------------------------
 # COMMUNICATION EXTRACTION (PRIVATE)
 # -------------------------
@@ -160,9 +227,8 @@ def extract_comm_state(calc_result: dict) -> dict:
     magnetism_level = "L" if magnetism_raw < 1000 else "N"
 
     return {
-        "c1": magnetism_level,
-        "c2": systems.get("cognitive", 0),
-        "c3": systems.get("structural", 0),
-        "c4": want_diff
+        "c1": magnetism_level,                     # magnetism level
+        "c2": systems.get("cognitive", 0),         # cognitive processing
+        "c3": systems.get("structural", 0),        # structural stability
+        "c4": want_diff                            # motivational tension
     }
-
