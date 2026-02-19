@@ -121,566 +121,172 @@ MONTH_MARKERS = {
     12: {"days": 31, "A3": 0, "B3": 0, "C3": 0},         # December
 }
 
+
 # HUMAN_ARCHITECTURE MARKERS
 HUMAN_ARCHITECTURE_MARKERS = {
     "1": {
-        "physical": {
-            "systems": {"Structural Stability": "33%", "Reproductive & Adaptive": "55%"},
-            "profile": "Sanguine",
-            "profile_id": "PH01"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "69%", "Emotional Integration": "95%"},
-            "profile": "Passionate",
-            "profile_id": "EM01"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "64%", "Cognitive Processing": "35%"},
-            "profile": "Artistic harmony",
-            "profile_id": "IN01"
-        },
+        "physical": {"systems": {"Structural Stability": "33%", "Reproductive & Adaptive": "55%"}, "profile": "Sanguine"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "69%", "Emotional Integration": "95%"}, "profile": "Passionate"},
+        "intellectual": {"systems": {"Expression & Implementation": "64%", "Cognitive Processing": "35%"}, "profile": "Artistic harmony"},
     },
     "2": {
-        "physical": {
-            "systems": {"Structural Stability": "55%", "Reproductive & Adaptive": "72%"},
-            "profile": "Sanguine–Choleric",
-            "profile_id": "PH02"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "75%", "Emotional Integration": "27%"},
-            "profile": "Ego-driven (leadership)",
-            "profile_id": "EM02"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "21%", "Cognitive Processing": "65%"},
-            "profile": "Discrete",
-            "profile_id": "IN02"
-        },
+        "physical": {"systems": {"Structural Stability": "55%", "Reproductive & Adaptive": "72%"}, "profile": "Sanguine–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "75%", "Emotional Integration": "27%"}, "profile": "Ego-driven (leadership)"},
+        "intellectual": {"systems": {"Expression & Implementation": "21%", "Cognitive Processing": "65%"}, "profile": "Discrete"},
     },
     "3": {
-        "physical": {
-            "systems": {"Structural Stability": "15%", "Reproductive & Adaptive": "65%"},
-            "profile": "Choleric",
-            "profile_id": "PH03"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "31%", "Emotional Integration": "45%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "21%", "Cognitive Processing": "65%"},
-            "profile": "Discrete",
-            "profile_id": "IN02"
-        },
+        "physical": {"systems": {"Structural Stability": "15%", "Reproductive & Adaptive": "65%"}, "profile": "Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "31%", "Emotional Integration": "45%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "21%", "Cognitive Processing": "65%"}, "profile": "Discrete"},
     },
     "4": {
-        "physical": {
-            "systems": {"Structural Stability": "50%", "Reproductive & Adaptive": "72%"},
-            "profile": "Sanguine–Choleric",
-            "profile_id": "PH02"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "62%", "Emotional Integration": "77%"},
-            "profile": "Passionate",
-            "profile_id": "EM01"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "93%", "Cognitive Processing": "82%"},
-            "profile": "Hyper-productive",
-            "profile_id": "IN03"
-        },
+        "physical": {"systems": {"Structural Stability": "50%", "Reproductive & Adaptive": "72%"}, "profile": "Sanguine–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "62%", "Emotional Integration": "77%"}, "profile": "Passionate"},
+        "intellectual": {"systems": {"Expression & Implementation": "93%", "Cognitive Processing": "82%"}, "profile": "Hyper-productive"},
     },
     "5": {
-        "physical": {
-            "systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "41%"},
-            "profile": "Melancholic",
-            "profile_id": "PH04"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "59%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "43%", "Cognitive Processing": "41%"},
-            "profile": "Artistic harmony",
-            "profile_id": "IN01"
-        },
+        "physical": {"systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "41%"}, "profile": "Melancholic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "59%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "43%", "Cognitive Processing": "41%"}, "profile": "Artistic harmony"},
     },
     "6": {
-        "physical": {
-            "systems": {"Structural Stability": "75%", "Reproductive & Adaptive": "21%"},
-            "profile": "Phlegmatic",
-            "profile_id": "PH05"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "68%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "0%", "Cognitive Processing": "99%"},
-            "profile": "Artistic–discrete",
-            "profile_id": "IN04"
-        },
+        "physical": {"systems": {"Structural Stability": "75%", "Reproductive & Adaptive": "21%"}, "profile": "Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "68%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "0%", "Cognitive Processing": "99%"}, "profile": "Artistic–discrete"},
     },
     "7": {
-        "physical": {
-            "systems": {"Structural Stability": "45%", "Reproductive & Adaptive": "72%"},
-            "profile": "Sanguine–Choleric",
-            "profile_id": "PH02"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "12%", "Emotional Integration": "45%"},
-            "profile": "Self-sacrificing integrative",
-            "profile_id": "EM04"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "57%", "Cognitive Processing": "88%"},
-            "profile": "Productive analytical",
-            "profile_id": "IN05"
-        },
+        "physical": {"systems": {"Structural Stability": "45%", "Reproductive & Adaptive": "72%"}, "profile": "Sanguine–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "12%", "Emotional Integration": "45%"}, "profile": "Self-sacrificing integrative"},
+        "intellectual": {"systems": {"Expression & Implementation": "57%", "Cognitive Processing": "88%"}, "profile": "Productive analytical"},
     },
     "8": {
-        "physical": {
-            "systems": {"Structural Stability": "60%", "Reproductive & Adaptive": "22%"},
-            "profile": "Phlegmatic",
-            "profile_id": "PH05"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "6%", "Emotional Integration": "23%"},
-            "profile": "Cold",
-            "profile_id": "EM05"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "7%", "Cognitive Processing": "41%"},
-            "profile": "Applied analytical",
-            "profile_id": "IN06"
-        },
+        "physical": {"systems": {"Structural Stability": "60%", "Reproductive & Adaptive": "22%"}, "profile": "Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "6%", "Emotional Integration": "23%"}, "profile": "Cold"},
+        "intellectual": {"systems": {"Expression & Implementation": "7%", "Cognitive Processing": "41%"}, "profile": "Applied analytical"},
     },
     "9": {
-        "physical": {
-            "systems": {"Structural Stability": "35%", "Reproductive & Adaptive": "28%"},
-            "profile": "Melancholic",
-            "profile_id": "PH04"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "81%", "Emotional Integration": "54%"},
-            "profile": "Ego-driven (leadership)",
-            "profile_id": "EM02"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "35%"},
-            "profile": "Applied mixed",
-            "profile_id": "IN07"
-        },
+        "physical": {"systems": {"Structural Stability": "35%", "Reproductive & Adaptive": "28%"}, "profile": "Melancholic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "81%", "Emotional Integration": "54%"}, "profile": "Ego-driven (leadership)"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "35%"}, "profile": "Applied mixed"},
     },
     "10": {
-        "physical": {
-            "systems": {"Structural Stability": "35%", "Reproductive & Adaptive": "49%"},
-            "profile": "Sanguine",
-            "profile_id": "PH01"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "77%"},
-            "profile": "Self-sacrificing integrative",
-            "profile_id": "EM04"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "86%", "Cognitive Processing": "35%"},
-            "profile": "Artistic harmony",
-            "profile_id": "IN01"
-        },
+        "physical": {"systems": {"Structural Stability": "35%", "Reproductive & Adaptive": "49%"}, "profile": "Sanguine"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "77%"}, "profile": "Self-sacrificing integrative"},
+        "intellectual": {"systems": {"Expression & Implementation": "86%", "Cognitive Processing": "35%"}, "profile": "Artistic harmony"},
     },
     "11": {
-        "physical": {
-            "systems": {"Structural Stability": "95%", "Reproductive & Adaptive": "21%"},
-            "profile": "Phlegmatic",
-            "profile_id": "PH05"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "18%", "Emotional Integration": "50%"},
-            "profile": "Self-sacrificing integrative",
-            "profile_id": "EM04"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "82%"},
-            "profile": "Cognitive harmony",
-            "profile_id": "IN08"
-        },
+        "physical": {"systems": {"Structural Stability": "95%", "Reproductive & Adaptive": "21%"}, "profile": "Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "18%", "Emotional Integration": "50%"}, "profile": "Self-sacrificing integrative"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "82%"}, "profile": "Cognitive harmony"},
     },
     "12": {
-        "physical": {
-            "systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "99%"},
-            "profile": "Sensitive–Choleric",
-            "profile_id": "PH06"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "59%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "86%", "Cognitive Processing": "41%"},
-            "profile": "Artistic harmony",
-            "profile_id": "IN01"
-        },
+        "physical": {"systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "99%"}, "profile": "Sensitive–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "59%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "86%", "Cognitive Processing": "41%"}, "profile": "Artistic harmony"},
     },
     "13": {
-        "physical": {
-            "systems": {"Structural Stability": "40%", "Reproductive & Adaptive": "61%"},
-            "profile": "Sanguine",
-            "profile_id": "PH01"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "68%"},
-            "profile": "Self-sacrificing integrative",
-            "profile_id": "EM04"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "14%", "Cognitive Processing": "71%"},
-            "profile": "Discrete",
-            "profile_id": "IN02"
-        },
+        "physical": {"systems": {"Structural Stability": "40%", "Reproductive & Adaptive": "61%"}, "profile": "Sanguine"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "68%"}, "profile": "Self-sacrificing integrative"},
+        "intellectual": {"systems": {"Expression & Implementation": "14%", "Cognitive Processing": "71%"}, "profile": "Discrete"},
     },
     "14": {
-        "physical": {
-            "systems": {"Structural Stability": "20%", "Reproductive & Adaptive": "55%"},
-            "profile": "Sensitive–Choleric",
-            "profile_id": "PH06"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "77%"},
-            "profile": "Passionate",
-            "profile_id": "EM01"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "50%", "Cognitive Processing": "59%"},
-            "profile": "Productive mixed",
-            "profile_id": "IN09"
-        },
+        "physical": {"systems": {"Structural Stability": "20%", "Reproductive & Adaptive": "55%"}, "profile": "Sensitive–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "77%"}, "profile": "Passionate"},
+        "intellectual": {"systems": {"Expression & Implementation": "50%", "Cognitive Processing": "59%"}, "profile": "Productive mixed"},
     },
     "15": {
-        "physical": {
-            "systems": {"Structural Stability": "40%", "Reproductive & Adaptive": "28%"},
-            "profile": "Melancholic",
-            "profile_id": "PH04"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "99%"},
-            "profile": "Passionate",
-            "profile_id": "EM01"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "78%", "Cognitive Processing": "65%"},
-            "profile": "Productive artistic",
-            "profile_id": "IN10"
-        },
+        "physical": {"systems": {"Structural Stability": "40%", "Reproductive & Adaptive": "28%"}, "profile": "Melancholic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "99%"}, "profile": "Passionate"},
+        "intellectual": {"systems": {"Expression & Implementation": "78%", "Cognitive Processing": "65%"}, "profile": "Productive artistic"},
     },
     "16": {
-        "physical": {
-            "systems": {"Structural Stability": "90%", "Reproductive & Adaptive": "21%"},
-            "profile": "Phlegmatic",
-            "profile_id": "PH05"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "36%"},
-            "profile": "Sentimental",
-            "profile_id": "EM06"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "93%", "Cognitive Processing": "24%"},
-            "profile": "Analog",
-            "profile_id": "IN11"
-        },
+        "physical": {"systems": {"Structural Stability": "90%", "Reproductive & Adaptive": "21%"}, "profile": "Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "36%"}, "profile": "Sentimental"},
+        "intellectual": {"systems": {"Expression & Implementation": "93%", "Cognitive Processing": "24%"}, "profile": "Analog"},
     },
     "17": {
-        "physical": {
-            "systems": {"Structural Stability": "50%", "Reproductive & Adaptive": "83%"},
-            "profile": "Sanguine–Choleric",
-            "profile_id": "PH02"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "41%"},
-            "profile": "Sentimental",
-            "profile_id": "EM06"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "84%", "Cognitive Processing": "71%"},
-            "profile": "Productive",
-            "profile_id": "IN12"
-        },
+        "physical": {"systems": {"Structural Stability": "50%", "Reproductive & Adaptive": "83%"}, "profile": "Sanguine–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "50%", "Emotional Integration": "41%"}, "profile": "Sentimental"},
+        "intellectual": {"systems": {"Expression & Implementation": "84%", "Cognitive Processing": "71%"}, "profile": "Productive"},
     },
     "18": {
-        "physical": {
-            "systems": {"Structural Stability": "10%", "Reproductive & Adaptive": "45%"},
-            "profile": "Sensitive",
-            "profile_id": "PH07"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "31%", "Emotional Integration": "14%"},
-            "profile": "Cold",
-            "profile_id": "EM05"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "41%"},
-            "profile": "Applied mixed",
-            "profile_id": "IN07"
-        },
+        "physical": {"systems": {"Structural Stability": "10%", "Reproductive & Adaptive": "45%"}, "profile": "Sensitive"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "31%", "Emotional Integration": "14%"}, "profile": "Cold"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "41%"}, "profile": "Applied mixed"},
     },
     "19": {
-        "physical": {
-            "systems": {"Structural Stability": "99%", "Reproductive & Adaptive": "55%"},
-            "profile": "Sanguine–Phlegmatic",
-            "profile_id": "PH08"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "99%", "Emotional Integration": "54%"},
-            "profile": "Ego-driven (leadership)",
-            "profile_id": "EM02"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "26%", "Cognitive Processing": "71%"},
-            "profile": "Cognitive harmony",
-            "profile_id": "IN08"
-        },
+        "physical": {"systems": {"Structural Stability": "99%", "Reproductive & Adaptive": "55%"}, "profile": "Sanguine–Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "99%", "Emotional Integration": "54%"}, "profile": "Ego-driven (leadership)"},
+        "intellectual": {"systems": {"Expression & Implementation": "26%", "Cognitive Processing": "71%"}, "profile": "Cognitive harmony"},
     },
     "20": {
-        "physical": {
-            "systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "52%"},
-            "profile": "Sanguine",
-            "profile_id": "PH01"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "32%"},
-            "profile": "Sentimental",
-            "profile_id": "EM06"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "99%", "Cognitive Processing": "82%"},
-            "profile": "Hyper-productive",
-            "profile_id": "IN03"
-        },
+        "physical": {"systems": {"Structural Stability": "30%", "Reproductive & Adaptive": "52%"}, "profile": "Sanguine"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "32%"}, "profile": "Sentimental"},
+        "intellectual": {"systems": {"Expression & Implementation": "99%", "Cognitive Processing": "82%"}, "profile": "Hyper-productive"},
     },
     "21": {
-        "physical": {
-            "systems": {"Structural Stability": "20%", "Reproductive & Adaptive": "79%"},
-            "profile": "Sensitive–Choleric",
-            "profile_id": "PH06"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "62%", "Emotional Integration": "41%"},
-            "profile": "Sentimental",
-            "profile_id": "EM06"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "7%", "Cognitive Processing": "76%"},
-            "profile": "Discrete",
-            "profile_id": "IN02"
-        },
+        "physical": {"systems": {"Structural Stability": "20%", "Reproductive & Adaptive": "79%"}, "profile": "Sensitive–Choleric"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "62%", "Emotional Integration": "41%"}, "profile": "Sentimental"},
+        "intellectual": {"systems": {"Expression & Implementation": "7%", "Cognitive Processing": "76%"}, "profile": "Discrete"},
     },
     "22": {
-        "physical": {
-            "systems": {"Structural Stability": "80%", "Reproductive & Adaptive": "63%"},
-            "profile": "Sanguine–Phlegmatic",
-            "profile_id": "PH08"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "18%"},
-            "profile": "Cold",
-            "profile_id": "EM05"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "14%", "Cognitive Processing": "35%"},
-            "profile": "Applied analytical",
-            "profile_id": "IN06"
-        },
+        "physical": {"systems": {"Structural Stability": "80%", "Reproductive & Adaptive": "63%"}, "profile": "Sanguine–Phlegmatic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "25%", "Emotional Integration": "18%"}, "profile": "Cold"},
+        "intellectual": {"systems": {"Expression & Implementation": "14%", "Cognitive Processing": "35%"}, "profile": "Applied analytical"},
     },
     "23": {
-        "physical": {
-            "systems": {"Structural Stability": "25%", "Reproductive & Adaptive": "51%"},
-            "profile": "Melancholic",
-            "profile_id": "PH04"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "69%", "Emotional Integration": "59%"},
-            "profile": "Ego-driven (leadership)",
-            "profile_id": "EM02"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "50%", "Cognitive Processing": "65%"},
-            "profile": "Productive mixed",
-            "profile_id": "IN09"
-        },
+        "physical": {"systems": {"Structural Stability": "25%", "Reproductive & Adaptive": "51%"}, "profile": "Melancholic"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "69%", "Emotional Integration": "59%"}, "profile": "Ego-driven (leadership)"},
+        "intellectual": {"systems": {"Expression & Implementation": "50%", "Cognitive Processing": "65%"}, "profile": "Productive mixed"},
     },
     "24": {
-        "physical": {
-            "systems": {"Structural Stability": "56%", "Reproductive & Adaptive": "41%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "56%", "Emotional Integration": "41%"},
-            "profile": "Sentimental",
-            "profile_id": "EM06"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "26%", "Cognitive Processing": "18%"},
-            "profile": "Applied mixed",
-            "profile_id": "IN07"
-        },
+        "physical": {"systems": {"Structural Stability": "56%", "Reproductive & Adaptive": "41%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "56%", "Emotional Integration": "41%"}, "profile": "Sentimental"},
+        "intellectual": {"systems": {"Expression & Implementation": "26%", "Cognitive Processing": "18%"}, "profile": "Applied mixed"},
     },
     "25": {
-        "physical": {
-            "systems": {"Structural Stability": "44%", "Reproductive & Adaptive": "68%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "68%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "88%"},
-            "profile": "Cognitive harmony",
-            "profile_id": "IN08"
-        },
+        "physical": {"systems": {"Structural Stability": "44%", "Reproductive & Adaptive": "68%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "68%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "88%"}, "profile": "Cognitive harmony"},
     },
     "26": {
-        "physical": {
-            "systems": {"Structural Stability": "37%", "Reproductive & Adaptive": "41%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "37%", "Emotional Integration": "41%"},
-            "profile": "Cold",
-            "profile_id": "EM05"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "93%", "Cognitive Processing": "59%"},
-            "profile": "Productive artistic",
-            "profile_id": "IN10"
-        },
+        "physical": {"systems": {"Structural Stability": "37%", "Reproductive & Adaptive": "41%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "37%", "Emotional Integration": "41%"}, "profile": "Cold"},
+        "intellectual": {"systems": {"Expression & Implementation": "93%", "Cognitive Processing": "59%"}, "profile": "Productive artistic"},
     },
     "27": {
-        "physical": {
-            "systems": {"Structural Stability": "56%", "Reproductive & Adaptive": "73%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "56%", "Emotional Integration": "73%"},
-            "profile": "Passionate",
-            "profile_id": "EM01"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "57%", "Cognitive Processing": "82%"},
-            "profile": "Applied analytical",
-            "profile_id": "IN06"
-        },
+        "physical": {"systems": {"Structural Stability": "56%", "Reproductive & Adaptive": "73%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "56%", "Emotional Integration": "73%"}, "profile": "Passionate"},
+        "intellectual": {"systems": {"Expression & Implementation": "57%", "Cognitive Processing": "82%"}, "profile": "Applied analytical"},
     },
     "28": {
-        "physical": {
-            "systems": {"Structural Stability": "44%", "Reproductive & Adaptive": "73%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "73%"},
-            "profile": "Empathic",
-            "profile_id": "EM03"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "29%"},
-            "profile": "Applied mixed",
-            "profile_id": "IN07"
-        },
+        "physical": {"systems": {"Structural Stability": "44%", "Reproductive & Adaptive": "73%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "44%", "Emotional Integration": "73%"}, "profile": "Empathic"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "29%"}, "profile": "Applied mixed"},
     },
     "29": {
-        "physical": {
-            "systems": {"Structural Stability": "29%", "Reproductive & Adaptive": "88%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "29%", "Emotional Integration": "88%"},
-            "profile": "Balanced",
-            "profile_id": "EM07"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "88%"},
-            "profile": "Cognitive harmony",
-            "profile_id": "IN08"
-        },
+        "physical": {"systems": {"Structural Stability": "29%", "Reproductive & Adaptive": "88%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "29%", "Emotional Integration": "88%"}, "profile": "Balanced"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "88%"}, "profile": "Cognitive harmony"},
     },
     "30": {
-        "physical": {
-            "systems": {"Structural Stability": "71%", "Reproductive & Adaptive": "47%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "71%", "Emotional Integration": "47%"},
-            "profile": "Balanced",
-            "profile_id": "EM07"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "71%", "Cognitive Processing": "47%"},
-            "profile": "Artistic harmony",
-            "profile_id": "IN01"
-        },
+        "physical": {"systems": {"Structural Stability": "71%", "Reproductive & Adaptive": "47%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "71%", "Emotional Integration": "47%"}, "profile": "Balanced"},
+        "intellectual": {"systems": {"Expression & Implementation": "71%", "Cognitive Processing": "47%"}, "profile": "Artistic harmony"},
     },
     "31": {
-        "physical": {
-            "systems": {"Structural Stability": "7%", "Reproductive & Adaptive": "35%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "7%", "Emotional Integration": "35%"},
-            "profile": "Balanced",
-            "profile_id": "EM07"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "7%", "Cognitive Processing": "35%"},
-            "profile": "Applied analytical",
-            "profile_id": "IN06"
-        },
+        "physical": {"systems": {"Structural Stability": "7%", "Reproductive & Adaptive": "35%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "7%", "Emotional Integration": "35%"}, "profile": "Balanced"},
+        "intellectual": {"systems": {"Expression & Implementation": "7%", "Cognitive Processing": "35%"}, "profile": "Applied analytical"},
     },
     "32": {
-        "physical": {
-            "systems": {"Structural Stability": "64%", "Reproductive & Adaptive": "59%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "64%", "Emotional Integration": "59%"},
-            "profile": "Balanced",
-            "profile_id": "EM07"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "64%", "Cognitive Processing": "59%"},
-            "profile": "Productive mixed",
-            "profile_id": "IN09"
-        },
+        "physical": {"systems": {"Structural Stability": "64%", "Reproductive & Adaptive": "59%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "64%", "Emotional Integration": "59%"}, "profile": "Balanced"},
+        "intellectual": {"systems": {"Expression & Implementation": "64%", "Cognitive Processing": "59%"}, "profile": "Productive mixed"},
     },
     "33": {
-        "physical": {
-            "systems": {"Structural Stability": "29%", "Reproductive & Adaptive": "82%"},
-            "profile": "Balanced",
-            "profile_id": "PH09"
-        },
-        "emotional": {
-            "systems": {"Metabolic Drive & Will": "29%", "Emotional Integration": "82%"},
-            "profile": "Balanced",
-            "profile_id": "EM07"
-        },
-        "intellectual": {
-            "systems": {"Expression & Implementation": "29%", "Cognitive Processing": "82%"},
-            "profile": "Cognitive harmony",
-            "profile_id": "IN08"
-        }
-    }
+        "physical": {"systems": {"Structural Stability": "29%", "Reproductive & Adaptive": "82%"}, "profile": "Balanced"},
+        "emotional": {"systems": {"Metabolic Drive & Will": "29%", "Emotional Integration": "82%"}, "profile": "Balanced"},
+        "intellectual": {"systems": {"Expression & Implementation": "29%", "Cognitive Processing": "82%"}, "profile": "Cognitive harmony"},
+    },
+}
