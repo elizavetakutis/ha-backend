@@ -89,9 +89,14 @@ def run_calculation(input_data):
     Z = reduce_value(B2 + B3 + B4, B1)
     K = reduce_value(C2 + C3 + C4, C1)
 
-    physical = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
-    emotional = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
-    intellectual = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
+physical_data = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
+emotional_data = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
+intellectual_data = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
+
+physical_profile_id = physical_data.get("profile_id")
+emotional_profile_id = emotional_data.get("profile_id")
+intellectual_profile_id = intellectual_data.get("profile_id")
+
 
     systems = {
         "structural": pct(physical["systems"]["Structural Stability"]),
