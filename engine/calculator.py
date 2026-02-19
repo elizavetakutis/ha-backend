@@ -45,7 +45,6 @@ def pct(value: str) -> int:
 # -------------------------
 # CORE CALCULATION
 # -------------------------
-
 def run_calculation(input_data):
 
     dob = input_data.patient_dob
@@ -89,72 +88,61 @@ def run_calculation(input_data):
     Z = reduce_value(B2 + B3 + B4, B1)
     K = reduce_value(C2 + C3 + C4, C1)
 
-physical_data = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
-emotional_data = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
-intellectual_data = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
+    # Получаем данные профилей
+    physical_data = HUMAN_ARCHITECTURE_MARKERS[str(X)]["physical"]
+    emotional_data = HUMAN_ARCHITECTURE_MARKERS[str(Z)]["emotional"]
+    intellectual_data = HUMAN_ARCHITECTURE_MARKERS[str(K)]["intellectual"]
 
-physical_profile_id = physical_data.get("profile_id")
-emotional_profile_id = emotional_data.get("profile_id")
-intellectual_profile_id = intellectual_data.get("profile_id")
-
+    # Получаем profile_id
+    physical_profile_id = physical_data.get("profile_id")
+    emotional_profile_id = emotional_data.get("profile_id")
+    intellectual_profile_id = intellectual_data.get("profile_id")
 
     systems = {
-        "structural": pct(physical["systems"]["Structural Stability"]),
-        "adaptive": pct(physical["systems"]["Reproductive & Adaptive"]),
-        "metabolic": pct(emotional["systems"]["Metabolic Drive & Will"]),
-        "emotional": pct(emotional["systems"]["Emotional Integration"]),
-        "expression": pct(intellectual["systems"]["Expression & Implementation"]),
-        "cognitive": pct(intellectual["systems"]["Cognitive Processing"]),
+        "structural": pct(physical_data["systems"]["Structural Stability"]),
+        "adaptive": pct(physical_data["systems"]["Reproductive & Adaptive"]),
+        "metabolic": pct(emotional_data["systems"]["Metabolic Drive & Will"]),
+        "emotional": pct(emotional_data["systems"]["Emotional Integration"]),
+        "expression": pct(intellectual_data["systems"]["Expression & Implementation"]),
+        "cognitive": pct(intellectual_data["systems"]["Cognitive Processing"]),
     }
-
-    # -------------------------
-    # PRAKRUTI
-    # -------------------------
-
-    kapha_raw = systems["structural"] + systems["adaptive"]
-    pitta_raw = systems["metabolic"] + systems["emotional"]
-    vata_raw = systems["expression"] + systems["cognitive"]
-
-    total = kapha_raw + pitta_raw + vata_raw
-
-    kapha = round(kapha_raw / total * 100)
-    pitta = round(pitta_raw / total * 100)
-    vata = round(vata_raw / total * 100)
-
-    dominant = max(kapha, pitta, vata)
-
-    if dominant == pitta:
-        prakruti = "Pitta dominant"
-    elif dominant == kapha:
-        prakruti = "Kapha dominant"
-    else:
-        prakruti = "Vata dominant"
-
-    # -------------------------
-    # YIN / YANG
-    # -------------------------
-
-    yin = systems["structural"] + systems["expression"] + systems["cognitive"]
-    yang = systems["adaptive"] + systems["metabolic"] + systems["emotional"]
-
-    if yang > yin:
-        direction = "Yang dominant"
-    elif yin > yang:
-        direction = "Yin dominant"
-    else:
-        direction = "Balanced"
-
-    balance_index = round(yang / yin, 2) if yin != 0 else None
 
     # -------------------------
     # TENSION & MAGNETISM
     # -------------------------
+
+    yin = systems["structural"] + systems["expression"] + systems["cognitive"]
+    yang = systems["adaptive"] + systems["metabolic"] + systems["emotional"]
 
     want = abs(yang - yin)
     can = systems["structural"]
 
     magnetism = want * can
     tension_ratio = round(want / can, 2) if can != 0 else None
+
+    # -------------------------
+    # FINAL RESULT
+    # -------------------------
+
+    return {
+        "markers": {
+            "physical": X,
+            "emotional": Z,
+            "intellectual": K
+        },
+        "profiles": {
+            "physical": physical_profile_id,
+            "emotional": emotional_profile_id,
+            "intellectual": intellectual_profile_id
+        },
+        "systems": systems,
+        "tension": {
+            "want": want,
+            "can": can,
+            "magnetism": magnetism,
+            "tension_ratio": tension_ratio
+        }
+    }
 
     # -------------------------
     # NEW: PROTOCOL ASSEMBLY
