@@ -1,12 +1,6 @@
 from datetime import datetime
 from .markers import YEAR_MARKERS, MONTH_MARKERS, HUMAN_ARCHITECTURE_MARKERS
 
-# NEW: interpretation layer (безопасный импорт)
-try:
-    from interpretation.protocol_assembly import assemble_protocol
-except:
-    assemble_protocol = None
-
 # -------------------------
 # CONSTANTS
 # -------------------------
@@ -45,6 +39,7 @@ def pct(value: str) -> int:
 # -------------------------
 # CORE CALCULATION
 # -------------------------
+
 def run_calculation(input_data):
 
     dob = input_data.patient_dob
@@ -98,6 +93,7 @@ def run_calculation(input_data):
     emotional_profile_id = emotional_data.get("profile_id")
     intellectual_profile_id = intellectual_data.get("profile_id")
 
+    # Системные проценты
     systems = {
         "structural": pct(physical_data["systems"]["Structural Stability"]),
         "adaptive": pct(physical_data["systems"]["Reproductive & Adaptive"]),
@@ -144,59 +140,7 @@ def run_calculation(input_data):
         }
     }
 
-    # -------------------------
-    # NEW: PROTOCOL ASSEMBLY
-    # -------------------------
 
-    output_text = None
-
-    if hasattr(input_data, "raw_protocol_text") and input_data.raw_protocol_text:
-        if assemble_protocol:
-            output_text = assemble_protocol(
-                raw_text=input_data.raw_protocol_text,
-                calculation_data={
-                    "systems": systems,
-                    "prakruti": prakruti,
-                    "yin_yang_direction": direction,
-                    "magnetism": magnetism
-                }
-            )
-        else:
-            # если interpretation layer ещё не создан
-            output_text = input_data.raw_protocol_text
-
-    # -------------------------
-    # FINAL RESULT
-    # -------------------------
-
-    return {
-        "markers": {
-            "physical": X,
-            "emotional": Z,
-            "intellectual": K
-        },
-    "profiles": { "physical": physical.get("profile_id"), "emotional": emotional.get("profile_id"), "intellectual": intellectual.get("profile_id") },
-        "systems": systems,
-        "prakruti": {
-            "kapha": kapha,
-            "pitta": pitta,
-            "vata": vata,
-            "type": prakruti
-        },
-        "yin_yang": {
-            "yin": yin,
-            "yang": yang,
-            "direction": direction,
-            "balance_index": balance_index
-        },
-        "tension": {
-            "want": want,
-            "can": can,
-            "magnetism": magnetism,
-            "tension_ratio": tension_ratio
-        },
-        "output": output_text   # ← НОВОЕ ПОЛЕ
-    }
 # -------------------------
 # COMMUNICATION EXTRACTION (PRIVATE)
 # -------------------------
@@ -216,8 +160,9 @@ def extract_comm_state(calc_result: dict) -> dict:
     magnetism_level = "L" if magnetism_raw < 1000 else "N"
 
     return {
-        "c1": magnetism_level,                     # magnetism level
-        "c2": systems.get("cognitive", 0),         # cognitive processing
-        "c3": systems.get("structural", 0),        # structural stability
-        "c4": want_diff                            # motivational tension
+        "c1": magnetism_level,
+        "c2": systems.get("cognitive", 0),
+        "c3": systems.get("structural", 0),
+        "c4": want_diff
     }
+
