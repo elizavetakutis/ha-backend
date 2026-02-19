@@ -293,7 +293,6 @@ HUMAN_ARCHITECTURE_MARKERS = {
             "profile_id": "IN01"
         },
     },
-}
     "11": {
         "physical": {
             "systems": {"Structural Stability": "95%", "Reproductive & Adaptive": "21%"},
